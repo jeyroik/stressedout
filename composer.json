@@ -1,0 +1,11 @@
+{
+    "name": "funcraft/stressedout",
+    "type": "project",
+    "authors": [
+        {
+            "name": "jeyroik",
+            "email": "jeyroik@gmail.com"
+        }
+    ],
+    "require": {}
+}

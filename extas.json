@@ -1,0 +1,59 @@
+{
+    "name": "strout/foundation",
+
+    "spaces": [
+        {
+            "id": "...",
+            "name": "...",
+            "title": "...",
+            "description": "...",
+
+            "value": 1000,
+
+            "specs": {
+                "object": {
+                    "hash": "some\\hash\\class",
+                    "creation": "some\\object\\class"
+                },
+                "treasure": {
+                    "hash": "some\\hash\\class",
+                    "mint": "some\\treasure\\lass"
+                }
+            }
+        }           
+    ],
+    "log": [
+        {
+            "space_id": "...",
+            "id": "...1",
+            "timestamp": 1234567890,
+            "type": {
+                "group": "object",
+                "action": "create"
+            },
+            "result": "...this is object hash"
+        },
+        {
+            "space_id": "...",
+            "id": "...1+...2",
+            "timestamp": 1235467890,
+            "type": {
+                "group": "treasure",
+                "action": "mint"
+            },
+            "result": "... this is trerasure hash"
+        }
+    ],
+
+    "objects": [
+        {
+
+        }
+    ],
+
+    "treasures": [
+        {
+
+        }
+    ]
+}
