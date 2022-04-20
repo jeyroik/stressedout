@@ -2,18 +2,14 @@
 namespace strout\components\founadtion\objects;
 
 use extas\components\Item;
+use extas\components\samples\parameters\THasSampleParameters;
+use extas\components\THasId;
 use strout\interfaces\foundation\objects\IObject;
-use strout\interfaces\foundation\objects\IObjectId;
-use THasSpecification;
 
 class ObjectBase extends Item implements IObject
 {
-    use THasSpecification;
-
-    public function getId(): IObjectId
-    {
-        return new ObjectId([IObjectId::FIELD__ID_RAW => $this[static::FIELD__ID]]);
-    }
+    use THasId;
+    use THasSampleParameters;
 
     protected function getSubjectForExtension(): string
     {

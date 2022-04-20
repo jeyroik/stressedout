@@ -1,12 +1,11 @@
 <?php
 namespace strout\interfaces\foundation\objects;
 
-use extas\interfaces\IDispatcherWrapper;
 use extas\interfaces\IHasId;
 use extas\interfaces\IItem;
-use strout\interfaces\foundation\treasures\IHasTreasures;
+use extas\interfaces\samples\parameters\IHasSampleParameters;
 
-interface IObject extends IItem, IHasTreasures, IDispatcherWrapper, IHasId
+interface IObject extends IItem, IHasId, IHasSampleParameters
 {
     public const SUBJECT = 'strout.object';
 }
