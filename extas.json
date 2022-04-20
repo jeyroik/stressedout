@@ -1,50 +1,64 @@
 {
     "name": "strout/foundation",
-
-    "spaces": [
+    "installer_version": 3,
+    "repositories": [
         {
-            "id": "...",
-            "name": "...",
-            "title": "...",
-            "description": "...",
-
-            "value": 1000,
-
-            "specs": {
-                "object": {
-                    "hash": "some\\hash\\class",
-                    "creation": "some\\object\\class"
-                },
-                "treasure": {
-                    "hash": "some\\hash\\class",
-                    "mint": "some\\treasure\\lass"
-                }
-            }
-        }           
-    ],
-    "log": [
-        {
-            "space_id": "...",
-            "id": "...1",
-            "timestamp": 1234567890,
-            "type": {
-                "group": "object",
-                "action": "create"
-            },
-            "result": "...this is object hash"
+            "name": "spaces",
+            "scope": "strout",
+            "pk": "id",
+            "class": "strout\\components\\foundation\\spaces\\Space",
+            "aliases": ["spaces"]
         },
         {
-            "space_id": "...",
-            "id": "...1+...2",
-            "timestamp": 1235467890,
-            "type": {
-                "group": "treasure",
-                "action": "mint"
-            },
-            "result": "... this is trerasure hash"
+            "name": "objects",
+            "scope": "strout",
+            "pk": "id",
+            "class": "strout\\components\\foundation\\objects\\ObjectBase",
+            "aliases": ["objects"]
+        },
+        {
+            "name": "contracts",
+            "scope": "strout",
+            "pk": "id",
+            "class": "strout\\components\\foundation\\contracts\\Contract",
+            "aliases": ["contracts"]
+        },
+        {
+            "name": "transactions",
+            "scope": "strout",
+            "pk": "id",
+            "class": "strout\\components\\foundation\\transactions\\Transaction",
+            "aliases": ["transactions"]
+        }
+    ],
+    "plugins_install": [
+        {
+            "repository": "spaces",
+            "name": "space",
+            "section": "spaces"
+        },
+        {
+            "repository": "objects",
+            "name": "object",
+            "section": "objects"
+        },
+        {
+            "repository": "contracts",
+            "name": "contract",
+            "section": "contracts"
+        },
+        {
+            "repository": "transactions",
+            "name": "transaction",
+            "section": "transactions"
         }
     ],
 
+    "spaces": [
+        {
+            "id": "..."
+        }           
+    ],
     "objects": [
         {
 
