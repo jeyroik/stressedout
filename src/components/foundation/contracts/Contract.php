@@ -2,38 +2,65 @@
 namespace strout\components\founadtion\contracts;
 
 use extas\components\Item;
-use extas\components\TDispatcherWrapper;
+use extas\components\THasId;
+use extas\components\samples\parameters\THasSampleParameters;
 use strout\interfaces\foundation\contracts\IContract;
-use strout\interfaces\foundation\spaces\ISpace;
+use strout\interfaces\foundation\transactions\ITransactionSample;
 
-class Contract extends Item implements IContract
+abstract class Contract extends Item implements IContract
 {
-    use TDispatcherWrapper;
+    use THasSampleParameters;
+    use THasId;
 
-    /**
-     * @var ISpace
-     */
-    protected $space = null;
-
-    public function execute(...$args): int
+    public function getProviderId(): string
     {
-        return $this->runSpaceOperation(static::OPERATION__EXECUTE, ...$args);
+        return $this->config[static::FIELD__PROVIDER_ID] ?? '';
     }
 
-    public function store(...$objects): int
+    public function setProviderId(string $uuid): IContract
     {
-        return $this->runSpaceOperation(static::OPERATION__STORE, ...$objects);
+        $this->config[static::FIELD__PROVIDER_ID] = $uuid;
+
+        return $this;
     }
 
-    protected function runSpaceOperation($operationName, ...$args): int
+    public function getBalance(): int
     {
-        $cost = 0;
+        return $this->config[static::FIELD__BALANCE] ?? 0;
+    }
 
-        foreach ($this->getPluginsByStage('strout.contract.' . $this->getName() . '.' . $operationName) as $plugin) {
-            $cost += $plugin($this, ...$args);
-        }
+    public function incBalance(int $amount): int
+    {
+        $this->config[static::FIELD__BALANCE] = $this->config[static::FIELD__BALANCE] + $amount;
 
-        return $cost;
+        return $this->getBalance();
+    }
+
+    public function decBalance(int $amount): int
+    {
+        return $this->incBalance(-$amount);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->config[static::FIELD__IS_ACTIVE] ?? false;
+    }
+
+    public function activate(): IContract
+    {
+        return $this->setIsActive(true);
+    }
+
+    public function deactivate(): IContract
+    {
+        return $this->setIsActive(false);
+    }
+
+    protected function setIsActive(bool $isActive): IContract
+    {
+        $this->config[static::FIELD__IS_ACTIVE] = $isActive;
+
+        return $this
     }
 
     protected function getSubjectForExtension(): string

@@ -3,30 +3,30 @@ namespace strout\interfaces\foundation\contracts;
 
 use extas\interfaces\IDispatcherWrapper;
 use extas\interfaces\IItem;
-use strout\interfaces\foundation\objects\IObject;
+use extas\interfaces\IHasId
+use extas\interfaces\samples\parameters\IHasSampleParameters;;
 
-interface IContract extends IItem, IDispatcherWrapper
+interface IContract extends IItem, IHasId, IHasSampleParameters
 {
     public const SUBJECT = 'strout.contract';
 
-    public const OPERATION__EXECUTE = 1;
-    public const OPERATION__STORE = 2;
-    public const OPERATION__REGISTRATION = 3;
-    public const OPERATION__TRANSPORT = 4;
+    public const FIELD__PROVIDER_ID = 'provider_id';
+    public const FIELD__BALANCE = 'balance';
+    public const FIELD__IS_ACTIVE = 'is_active';
 
     /**
-     * Execute some operations in a space
-     *
-     * @param [type] ...$args
-     * @return integer payment amount
+     * @return ITransactionSample
      */
-    public function execute(...$args): int;
+    public function commit(): ITransactionSample;
 
-    /**
-     * Place $objects into a space
-     *
-     * @param IObject[] ...$objects
-     * @return integer payment amount
-     */
-    public function store(...$objects): int;
+    public function getProviderId(): string;
+    public function setProviderId(string $uuid): IContract;
+
+    public function getBalance(): int;
+    public function incBalance(int $amount): int;
+    public function decBalance(int $amount): int;
+
+    public function isActive(): bool;
+    public function activate(): IContract;
+    public function deactivate(): IContract;
 }

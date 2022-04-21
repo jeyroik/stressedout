@@ -4,18 +4,23 @@ namespace strout\interfaces\foundation\spaces;
 use extas\interfaces\IItem;
 use extas\interfaces\IHasId;
 use strout\interfaces\foundation\contracts\IContract;
+use strout\interfaces\foundation\transactions\ITransaction;
 
 interface ISpace extends IItem, IHasId
 {
     public const SUBJECT = 'strout.space';
-    public const STAGE__CONTRACT_REGISTRATION = 'strout.contract.registration';
+    
+    public function createContract(IContractSample $sample): IContract;
+    public function createTransaction(ITransactionSample $sample): ITransaction;
 
+    public function deactivateContract(IContract $contract): bool;
+
+    public function oneContract(string $id): ?IContract;
+    public function oneTransaction(string $id): ?ITransaction;
+    
     /**
-     * This method is installing extensions/plugins for dispatching $contract basic actions/events.
-     * Also set space instance into a $contract.
-     *
-     * @param IContract $contract
-     * @return integer paying amount - which sum was gathered by space
+     * @param array $query [from => <id>, to => <id>]
+     * @return ITransaction[]
      */
-    public function register(IContract $contract): int;
+    public function allTransactions(array $query): array;
 }

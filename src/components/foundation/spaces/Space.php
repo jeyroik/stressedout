@@ -3,32 +3,70 @@ namespace strout\components\founadtion\spaces;
 
 use extas\components\Item;
 use extas\components\THasId;
-use extas\interfaces\extensions\IExtension;
 use strout\interfaces\foundation\contracts\IContract;
+use strout\interfaces\foundation\contracts\IContractSample;
+use strout\interfaces\foundation\transactions\ITransaction;
+use strout\interfaces\foundation\transactions\ITransactionSample;
 use strout\interfaces\foundation\spaces\ISpace;
-use extas\interfaces\extensions\IExtensionRepository;
 
 /**
- * @method IExtensionRepository extensions()
- * @method int calculatePayment(IContract $contract, int $operation)
- * @method bool send(IContract $contract, IContract $contract, int $payment)
- * @method IContract getSpaceContract()
+ * @method IRepository contracts()
+ * @method IRepository transactions()
  */
 class Space extends Item implements ISpace
 {
     use THasId;
 
-    public function register(IContract $contract): int
+    public function createContract(IContractSample $contractSample): IContract
     {
-        foreach ($this->getPluginsByStage(static::STAGE__CONTRACT_REGISTRATION) as $plugin) {
-            $plugin($contract);
-        }
+        $contract = $contractSample->buildClassWithParameters([
+            IContract::FIELD__ID => Uuid::uuid6(),
+            IContract::FIELD__PROVIDER => $this->getId()
+        ]);
 
-        $payment = $this->calculatePayment($contract, IContract::OPERATION__REGISTRATION);
+        $this->contracts()->create($contract);
 
-        $this->send($contract, $this->getSpaceContract(), $payment);
+        return $contract;
+    }
 
-        return $payment;
+    public function createTransaction(ITransactionSample $transactionSample): ITransaction
+    {
+        $transaction = $transactionSample->buildClassWithParameters([
+            IContract::FIELD__ID => Uuid::uuid6(),
+            IContract::FIELD__PROVIDER => $this->getId()
+        ]);
+
+        $this->transactions()->create($transaction);
+
+        return $transaction;
+    }
+
+    public function deactivateContract(IContract $contract): bool
+    {
+        $contract->deactivate();
+
+        $this->contracts()->update($contract);
+
+        return true;
+    }
+
+    public function oneContract(string $id): ?IContract
+    {
+        return $this->contracts()->one([IContract::FIELD__ID => $id]);
+    }
+
+    public function oneTransaction(string $id): ?ITransaction
+    {
+        return $this->transactions()->one([ITransaction::FIELD__ID => $id]);
+    }
+    
+    /**
+     * @param array $query [from => <id>, to => <id>]
+     * @return ITransaction[]
+     */
+    public function allTransactions(array $query): array
+    {
+        return $this->transactions()->all($query);
     }
 
     protected function getSubjectForExtension(): string
