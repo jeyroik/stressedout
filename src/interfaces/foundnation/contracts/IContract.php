@@ -14,11 +14,6 @@ interface IContract extends IItem, IHasId, IHasSampleParameters
     public const FIELD__BALANCE = 'balance';
     public const FIELD__IS_ACTIVE = 'is_active';
 
-    /**
-     * @return ITransactionSample
-     */
-    public function commit(): ITransactionSample;
-
     public function getProviderId(): string;
     public function setProviderId(string $uuid): IContract;
 

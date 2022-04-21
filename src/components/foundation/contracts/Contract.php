@@ -7,7 +7,7 @@ use extas\components\samples\parameters\THasSampleParameters;
 use strout\interfaces\foundation\contracts\IContract;
 use strout\interfaces\foundation\transactions\ITransactionSample;
 
-abstract class Contract extends Item implements IContract
+class Contract extends Item implements IContract
 {
     use THasSampleParameters;
     use THasId;

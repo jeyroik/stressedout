@@ -14,7 +14,6 @@ $shop = $mySpace->createContract($shopSample);
 $I    = $mySpace->createContract($ISample);
 $car  = $mySpace->createContract($carSample);
 
-$shop->own($car);
-$transactionSample = $shop->sell($car, 100)->to($I)->commit(); // create transaction sample (local transaction)
+$transactionSample = $shop->sell($car, 100, $I); // create transaction sample (local transaction)
 $transaction = $mySpace->createTransaction($transactionSample); // save transaction to a space
 ```

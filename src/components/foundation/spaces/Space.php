@@ -19,10 +19,11 @@ class Space extends Item implements ISpace
 
     public function createContract(IContractSample $contractSample): IContract
     {
-        $contract = $contractSample->buildClassWithParameters([
-            IContract::FIELD__ID => Uuid::uuid6(),
-            IContract::FIELD__PROVIDER => $this->getId()
-        ]);
+        $contractSample->setParameterValue(IContract::FIELD__ID, Uuid::uuid6())
+                       ->setParameterValue(IContract::FIELD__PROVIDER_ID, $this->getId());
+
+        $params   = $contractSample->getParametersValues();
+        $contract = $contractSample->buildClassWithParameters($params);
 
         $this->contracts()->create($contract);
 
@@ -31,10 +32,11 @@ class Space extends Item implements ISpace
 
     public function createTransaction(ITransactionSample $transactionSample): ITransaction
     {
-        $transaction = $transactionSample->buildClassWithParameters([
-            IContract::FIELD__ID => Uuid::uuid6(),
-            IContract::FIELD__PROVIDER => $this->getId()
-        ]);
+        $transactionSample->setParameterValue(ITransaction::FIELD__ID, Uuid::uuid6())
+                          ->setParameterValue(ITransaction::FIELD__PROVIDER_ID, $this->getId());
+
+        $params      = $transactionSample->getParametersValues();
+        $transaction = $transactionSample->buildClassWithParameters($params);
 
         $this->transactions()->create($transaction);
 
