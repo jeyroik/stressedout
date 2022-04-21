@@ -10,13 +10,6 @@
             "aliases": ["spaces"]
         },
         {
-            "name": "objects",
-            "scope": "strout",
-            "pk": "id",
-            "class": "strout\\components\\foundation\\objects\\ObjectBase",
-            "aliases": ["objects"]
-        },
-        {
             "name": "contracts",
             "scope": "strout",
             "pk": "id",
@@ -38,11 +31,6 @@
             "section": "spaces"
         },
         {
-            "repository": "objects",
-            "name": "object",
-            "section": "objects"
-        },
-        {
             "repository": "contracts",
             "name": "contract",
             "section": "contracts"
@@ -51,23 +39,6 @@
             "repository": "transactions",
             "name": "transaction",
             "section": "transactions"
-        }
-    ],
-
-    "spaces": [
-        {
-            "id": "..."
-        }           
-    ],
-    "objects": [
-        {
-
-        }
-    ],
-
-    "treasures": [
-        {
-
         }
     ]
 }
